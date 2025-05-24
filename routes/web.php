@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/orders', [AdminController::class, 'orders']);
+    Route::get('/vendors', [AdminController::class, 'vendors']);
+    Route::get('/products', [AdminController::class, 'products']);
+    Route::get('/categories', [AdminController::class, 'categories']);
+    Route::get('/payments', [AdminController::class, 'payments']);
+});
